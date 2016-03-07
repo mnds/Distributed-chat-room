@@ -17,6 +17,11 @@
   </properties>
   <dependencies>
     <dependency>
+      <groupId>sn.esp.dgi</groupId>
+      <artifactId>chatRoom</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>1.19</version>
