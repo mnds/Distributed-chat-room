@@ -5,14 +5,13 @@
  */
 package sn.esp.dgi.server;
 
-import java.rmi.Remote;
 import sn.esp.dgi.sever.IChatRoom;
 
 /**
  *
  * @author mnds
  */
-public interface ILoadBalancer extends Remote {
+public interface ILoadBalancer{
     
     /**
      * Adds the given chat room to the list of handled chat rooms
