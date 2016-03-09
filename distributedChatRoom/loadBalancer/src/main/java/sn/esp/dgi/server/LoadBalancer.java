@@ -9,7 +9,6 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -20,6 +19,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 import sn.esp.dgi.sever.IChatRoom;
 
 /**
@@ -80,11 +80,11 @@ public class LoadBalancer implements ILoadBalancer {
      */
     @POST
     @Path("{chatroom}/{pseudo}")
-    public int postMessage( @PathParam("chatroom") String chatRoomName,
+    public Response postMessage( @PathParam("chatroom") String chatRoomName,
             @PathParam("pseudo") String pseudo, String message) {
         
         IChatRoom chatRoom = chatRooms.get(chatRoomName);
-        int chatRoomSequenceNumber = 0;
+        Integer chatRoomSequenceNumber = 0;
         
         if (chatRoom != null) {
             try {
@@ -95,7 +95,7 @@ public class LoadBalancer implements ILoadBalancer {
             }
         }
         
-        return chatRoomSequenceNumber;
+        return Response.accepted(chatRoomSequenceNumber).build();
     }
     
     /**
@@ -107,7 +107,7 @@ public class LoadBalancer implements ILoadBalancer {
      */
     @GET
     @Path("{chatroom}/{pseudo}")
-    public List<String> getNewMessages( @PathParam("chatroom") String chatRoomName,
+    public Response getNewMessages( @PathParam("chatroom") String chatRoomName,
             @PathParam("pseudo") String pseudo, @QueryParam("sequence") int sequenceNumber ) {
         
         IChatRoom chatRoom = chatRooms.get(chatRoomName);
@@ -122,7 +122,7 @@ public class LoadBalancer implements ILoadBalancer {
             }
         }
         
-        return messages;
+        return Response.ok(messages).build();
     } 
     
     /**
@@ -130,8 +130,8 @@ public class LoadBalancer implements ILoadBalancer {
      * @return the set of chat rooms registered in the load balancer
      */
     @GET
-    public Set<String> getChatRoomsList() {
-        return chatRooms.keySet();
+    public Response getChatRoomsList() {
+        return Response.ok(chatRooms.keySet()).build();
     }
     
     /**
@@ -142,7 +142,7 @@ public class LoadBalancer implements ILoadBalancer {
      */
     @POST
     @Path("join/{chatroom}/{pseudo}")
-    public int joinChatRoom( @PathParam("chatroom") String chatRoomName,
+    public Response joinChatRoom( @PathParam("chatroom") String chatRoomName,
             @PathParam("pseudo") String pseudo ) {
         
         IChatRoom chatRoom = chatRooms.get(chatRoomName);
@@ -157,6 +157,6 @@ public class LoadBalancer implements ILoadBalancer {
             }
         }
         
-        return chatRoomSequenceNumber;
+        return Response.accepted(chatRoomSequenceNumber).build();
     }
 }
