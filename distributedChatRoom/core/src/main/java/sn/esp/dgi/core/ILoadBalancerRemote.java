@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sn.esp.dgi.server;
+package sn.esp.dgi.core;
 
-import sn.esp.dgi.sever.IChatRoom;
+import java.util.Map;
 
 /**
  *
  * @author mnds
  */
-public interface ILoadBalancer{
+public interface ILoadBalancerRemote{
     
     /**
      * Adds the given chat room to the list of handled chat rooms
-     * @param chatRoom 
+     * @param name The name of the chat room
+     * @param address the address of the chat room
      */
-    public void addChatRoom( IChatRoom chatRoom );
+    public void addChatRoom( String name, String address );
     
     /**
      * Removes the given chat room from the list of handled chat rooms
-     * @param chatRoom 
+     * @param name The name of the chat room to remove
      */
-    public void removeChatRoom( IChatRoom chatRoom );
+    public void removeChatRoom( String name );
+
 }

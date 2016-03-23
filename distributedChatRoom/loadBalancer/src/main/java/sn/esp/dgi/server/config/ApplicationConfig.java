@@ -11,20 +11,20 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import org.eclipse.persistence.jaxb.rs.MOXyJsonProvider;
-import sn.esp.dgi.server.LoadBalancer;
+import sn.esp.dgi.server.LoadBalancerREST;
 
 /**
  *
  * @author mnds
  */
-@ApplicationPath("rs")
+@ApplicationPath("ws")
 public class ApplicationConfig extends Application {
 
     private final Set<Class<?>> classes;
 
     public ApplicationConfig() {
         HashSet<Class<?>> c = new HashSet();
-        c.add(LoadBalancer.class);
+        c.add(LoadBalancerREST.class);
         c.add(MOXyJsonProvider.class);
         classes = Collections.unmodifiableSet(c);
     }

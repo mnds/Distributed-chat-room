@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sn.esp.dgi.sever;
+package sn.esp.dgi.core;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -33,13 +33,28 @@ public interface IChatRoom extends Remote {
     public int subscribe( String pseudo) throws RemoteException;
     
     /**
+     * Unsubscribing the client whose pseudo is given
+     * @param pseudo
+     * @throws RemoteException 
+     */
+    public void unsubscribe( String pseudo ) throws RemoteException;
+    
+    /**
      * 
      * @param pseudo the value of pseudo
      * @param sequenceNumber the sequence number stored by the client
      * @throws java.rmi.RemoteException
      * @return the list of new messages posted since last retrieval
      */
-    public List<String> getNewMessages(String pseudo, int sequenceNumber) throws RemoteException;
+    public String getNewMessages(String pseudo, int sequenceNumber) throws RemoteException;
+    
+    /**
+     * 
+     * @param pseudo
+     * @return the sequence number of the chat room, i.e the number of messages sent to it
+     * @throws RemoteException 
+     */
+    public int getSequenceNumber( String pseudo ) throws RemoteException;
     
     /**
      * 
@@ -47,4 +62,10 @@ public interface IChatRoom extends Remote {
      * @throws java.rmi.RemoteException
      */
     public String getName() throws RemoteException;
+    
+    /**
+     * @return the address of the chat room
+     * @throws RemoteException 
+     */
+    public String getAddress() throws RemoteException;
 }
